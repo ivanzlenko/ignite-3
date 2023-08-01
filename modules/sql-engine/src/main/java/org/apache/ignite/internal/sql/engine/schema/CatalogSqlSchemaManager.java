@@ -93,7 +93,7 @@ public class CatalogSqlSchemaManager implements SqlSchemaManager {
     /** {@inheritDoc} */
     @Override
     public CompletableFuture<?> actualSchemaAsync(long ver) {
-        return CompletableFuture.completedFuture(catalogManager.schema((int) ver));
+        return catalogManager.catalogReadyFuture((int) ver);
     }
 
     /** {@inheritDoc} */

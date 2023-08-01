@@ -610,7 +610,7 @@ public class ExecutionServiceImplTest {
         rootSch.add(schema.getName(), schema);
         SchemaPlus plus = rootSch.plus().getSubSchema(schema.getName());
 
-        when(schemaManagerMock.schema(any())).thenReturn(plus);
+        when(schemaManagerMock.schema(any(), anyInt())).thenReturn(plus);
 
         var executionService = new ExecutionServiceImpl<>(
                 messageService,
