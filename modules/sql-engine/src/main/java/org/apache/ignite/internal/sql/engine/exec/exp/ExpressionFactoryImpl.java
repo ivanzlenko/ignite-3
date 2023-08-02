@@ -87,7 +87,7 @@ import org.jetbrains.annotations.Nullable;
  * wrapper over it is returned.
  */
 public class ExpressionFactoryImpl<RowT> implements ExpressionFactory<RowT> {
-    private static final int CACHE_SIZE = 1024;
+    private static final int CACHE_SIZE = 0;
 
     /** Placeholder for DEFAULT operator value. */
     // TODO Remove this constant when https://issues.apache.org/jira/browse/IGNITE-19096 is complete
