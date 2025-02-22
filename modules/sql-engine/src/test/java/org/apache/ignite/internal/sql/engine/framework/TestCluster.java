@@ -34,7 +34,6 @@ import org.apache.ignite.internal.manager.IgniteComponent;
 import org.apache.ignite.internal.sql.engine.exec.LifecycleAware;
 import org.apache.ignite.internal.sql.engine.exec.ScannableTable;
 import org.apache.ignite.internal.sql.engine.exec.UpdatableTable;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders.AssignmentsProvider;
 import org.apache.ignite.internal.sql.engine.prepare.PrepareService;
 import org.apache.ignite.internal.util.IgniteUtils;
 

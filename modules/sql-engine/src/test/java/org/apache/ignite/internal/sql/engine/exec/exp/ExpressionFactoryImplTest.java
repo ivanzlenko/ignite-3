@@ -58,7 +58,7 @@ import org.apache.ignite.internal.network.ClusterNodeImpl;
 import org.apache.ignite.internal.sql.engine.exec.ExecutionContext;
 import org.apache.ignite.internal.sql.engine.exec.QueryTaskExecutor;
 import org.apache.ignite.internal.sql.engine.exec.mapping.FragmentDescription;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.ExecutionContextBuilderImpl;
 import org.apache.ignite.internal.sql.engine.prepare.bounds.ExactBounds;
 import org.apache.ignite.internal.sql.engine.prepare.bounds.MultiBounds;
 import org.apache.ignite.internal.sql.engine.prepare.bounds.RangeBounds;
@@ -101,7 +101,7 @@ public class ExpressionFactoryImplTest extends BaseIgniteAbstractTest {
         FragmentDescription fragmentDescription = new FragmentDescription(1, true,
                 Long2ObjectMaps.emptyMap(), null, null, null);
 
-        ctx = TestBuilders.executionContext()
+        ctx = ExecutionContextBuilderImpl.executionContext()
                 .queryId(randomUUID())
                 .localNode(new ClusterNodeImpl(randomUUID(), "node-1", new NetworkAddress("localhost", 1234)))
                 .fragment(fragmentDescription)

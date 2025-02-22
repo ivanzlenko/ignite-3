@@ -26,8 +26,8 @@ import java.util.function.UnaryOperator;
 import org.apache.calcite.plan.RelOptPlanner.CannotPlanException;
 import org.apache.calcite.plan.RelOptUtil;
 import org.apache.calcite.rel.RelNode;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.rel.IgniteIndexScan;
 import org.apache.ignite.internal.sql.engine.rel.IgniteRel;
 import org.apache.ignite.internal.sql.engine.rel.IgniteTableScan;
@@ -146,7 +146,7 @@ public class HashIndexPlannerTest extends AbstractPlannerTest {
     }
 
     private static IgniteSchema makeCommonSchema() {
-        return createSchema(TestBuilders.table()
+        return createSchema(TableBuilderImpl.table()
                 .name("TEST_TBL")
                 .addColumn("ID", NativeTypes.INT32)
                 .addColumn("VAL", NativeTypes.INT32)

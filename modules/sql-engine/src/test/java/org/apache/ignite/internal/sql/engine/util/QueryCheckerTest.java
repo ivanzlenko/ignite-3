@@ -17,6 +17,7 @@
 
 package org.apache.ignite.internal.sql.engine.util;
 
+import static org.apache.ignite.internal.sql.engine.framework.ScannableTableFactory.tableScan;
 import static org.apache.ignite.internal.testframework.IgniteTestUtils.assertThrows;
 import static org.apache.ignite.internal.testframework.IgniteTestUtils.assertThrowsWithCause;
 import static org.apache.ignite.internal.util.CompletableFutures.nullCompletedFuture;
@@ -31,8 +32,8 @@ import org.apache.ignite.internal.manager.ComponentContext;
 import org.apache.ignite.internal.sql.engine.AsyncSqlCursor;
 import org.apache.ignite.internal.sql.engine.InternalSqlRow;
 import org.apache.ignite.internal.sql.engine.QueryProcessor;
+import org.apache.ignite.internal.sql.engine.framework.ClusterBuilderImpl;
 import org.apache.ignite.internal.sql.engine.framework.DataProvider;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
 import org.apache.ignite.internal.sql.engine.framework.TestCluster;
 import org.apache.ignite.internal.sql.engine.framework.TestNode;
 import org.apache.ignite.internal.sql.engine.prepare.QueryMetadata;
@@ -62,7 +63,7 @@ public class QueryCheckerTest extends BaseIgniteAbstractTest {
     @InjectQueryCheckerFactory
     private static QueryCheckerFactory queryCheckerFactory;
 
-    private static final TestCluster CLUSTER = TestBuilders.cluster()
+    private static final TestCluster CLUSTER = ClusterBuilderImpl.cluster()
             .nodes(NODE_NAME)
             .build();
 
@@ -84,7 +85,7 @@ public class QueryCheckerTest extends BaseIgniteAbstractTest {
         CLUSTER.setAssignmentsProvider("T1", (partitionCount, b) -> IntStream.range(0, partitionCount)
                 .mapToObj(i -> List.of("N1"))
                 .collect(Collectors.toList()));
-        CLUSTER.setDataProvider("T1", TestBuilders.tableScan(DataProvider.fromCollection(
+        CLUSTER.setDataProvider("T1", tableScan(DataProvider.fromCollection(
                 List.of(new Object[]{1, 1, 1}, new Object[]{2, 2, 1})
         )));
     }

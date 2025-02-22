@@ -54,7 +54,7 @@ import org.apache.ignite.internal.partitiondistribution.TokenizedAssignments;
 import org.apache.ignite.internal.partitiondistribution.TokenizedAssignmentsImpl;
 import org.apache.ignite.internal.placementdriver.event.PrimaryReplicaEventParameters;
 import org.apache.ignite.internal.replicator.TablePartitionId;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.ClusterBuilderImpl;
 import org.apache.ignite.internal.sql.engine.framework.TestCluster;
 import org.apache.ignite.internal.sql.engine.prepare.MultiStepPlan;
 import org.apache.ignite.internal.sql.engine.prepare.pruning.PartitionPruner;
@@ -84,7 +84,7 @@ public class MappingServiceImplTest extends BaseIgniteAbstractTest {
 
     static {
         // @formatter:off
-        cluster = TestBuilders.cluster()
+        cluster = ClusterBuilderImpl.cluster()
                 .nodes("N1")
                 .addTable()
                         .name("T1")

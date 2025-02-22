@@ -17,6 +17,7 @@
 
 package org.apache.ignite.internal.sql.engine.benchmarks;
 
+import static org.apache.ignite.internal.sql.engine.framework.ScannableTableFactory.tableScan;
 import static org.apache.ignite.internal.testframework.IgniteTestUtils.await;
 
 import java.util.List;
@@ -24,8 +25,8 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.apache.ignite.internal.sql.engine.framework.ClusterBuilderImpl;
 import org.apache.ignite.internal.sql.engine.framework.DataProvider;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
 import org.apache.ignite.internal.sql.engine.framework.TestCluster;
 import org.apache.ignite.internal.sql.engine.framework.TestNode;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -61,7 +62,7 @@ public class SqlBenchmark {
     );
 
     // @formatter:off
-    private final TestCluster cluster = TestBuilders.cluster()
+    private final TestCluster cluster = ClusterBuilderImpl.cluster()
             .nodes("N1", "N2", "N3")
             .build();
     // @formatter:on
@@ -85,7 +86,7 @@ public class SqlBenchmark {
                     .map(List::of)
                     .collect(Collectors.toList());
         });
-        cluster.setDataProvider("T1", TestBuilders.tableScan(dataProvider));
+        cluster.setDataProvider("T1", tableScan(dataProvider));
     }
 
     /** Stops the cluster. */

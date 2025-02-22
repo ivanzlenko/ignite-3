@@ -18,6 +18,7 @@
 package org.apache.ignite.internal.sql.engine.exec.rel;
 
 import static java.util.UUID.randomUUID;
+import static org.apache.ignite.internal.sql.engine.framework.ClusterServiceFactory.clusterServiceFactory;
 import static org.apache.ignite.internal.testframework.IgniteTestUtils.await;
 import static org.apache.ignite.internal.testframework.IgniteTestUtils.waitForCondition;
 import static org.apache.ignite.internal.util.CompletableFutures.nullCompletedFuture;
@@ -63,7 +64,7 @@ import org.apache.ignite.internal.sql.engine.exec.row.RowSchema;
 import org.apache.ignite.internal.sql.engine.framework.ArrayRowHandler;
 import org.apache.ignite.internal.sql.engine.framework.ClusterServiceFactory;
 import org.apache.ignite.internal.sql.engine.framework.DataProvider;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.ExecutionContextBuilderImpl;
 import org.apache.ignite.internal.sql.engine.message.MessageService;
 import org.apache.ignite.internal.sql.engine.message.MessageServiceImpl;
 import org.apache.ignite.internal.sql.engine.trait.AllNodes;
@@ -118,7 +119,7 @@ public class ExchangeExecutionTest extends AbstractExecutionTest<Object[]> {
 
     private final Map<String, MailboxRegistry> mailboxes = new HashMap<>();
     private final Map<String, ExchangeService> exchangeServices = new HashMap<>();
-    private final ClusterServiceFactory serviceFactory = TestBuilders.clusterServiceFactory(List.of(ROOT_NODE_NAME, ANOTHER_NODE_NAME));
+    private final ClusterServiceFactory serviceFactory = clusterServiceFactory(List.of(ROOT_NODE_NAME, ANOTHER_NODE_NAME));
 
     @AfterAll
     static void tearDown() {
@@ -243,7 +244,7 @@ public class ExchangeExecutionTest extends AbstractExecutionTest<Object[]> {
         String dataNode1Name = "DATA_NODE_1";
         String dataNode2Name = "DATA_NODE_2";
 
-        ClusterServiceFactory serviceFactory = TestBuilders.clusterServiceFactory(List.of(ROOT_NODE_NAME, dataNode1Name, dataNode2Name));
+        ClusterServiceFactory serviceFactory = clusterServiceFactory(List.of(ROOT_NODE_NAME, dataNode1Name, dataNode2Name));
 
         TestDataProvider node1DataProvider = new TestDataProvider(3);
         ClusterNode dataNode1 = new ClusterNodeImpl(randomUUID(), dataNode1Name, NetworkAddress.from("127.0.0.1:10001"));
@@ -325,7 +326,7 @@ public class ExchangeExecutionTest extends AbstractExecutionTest<Object[]> {
         UUID queryId = randomUUID();
         String dataNodeName = "DATA_NODE";
 
-        ClusterServiceFactory serviceFactory = TestBuilders.clusterServiceFactory(List.of(ROOT_NODE_NAME, ANOTHER_NODE_NAME, dataNodeName));
+        ClusterServiceFactory serviceFactory = clusterServiceFactory(List.of(ROOT_NODE_NAME, ANOTHER_NODE_NAME, dataNodeName));
 
         TestDataProvider nodeDataProvider = new TestDataProvider(1200);
         ClusterNode dataNode = new ClusterNodeImpl(randomUUID(), dataNodeName, NetworkAddress.from("127.0.0.1:10001"));
@@ -392,7 +393,7 @@ public class ExchangeExecutionTest extends AbstractExecutionTest<Object[]> {
         UUID queryId = randomUUID();
         String dataNodeName = "DATA_NODE";
 
-        ClusterServiceFactory serviceFactory = TestBuilders.clusterServiceFactory(List.of(ROOT_NODE_NAME, ANOTHER_NODE_NAME, dataNodeName));
+        ClusterServiceFactory serviceFactory = clusterServiceFactory(List.of(ROOT_NODE_NAME, ANOTHER_NODE_NAME, dataNodeName));
 
         TestDataProvider nodeDataProvider = new TestDataProvider(8000);
         ClusterNode dataNode = new ClusterNodeImpl(randomUUID(), dataNodeName, NetworkAddress.from("127.0.0.1:10001"));
@@ -501,7 +502,7 @@ public class ExchangeExecutionTest extends AbstractExecutionTest<Object[]> {
     ) {
         QueryTaskExecutor taskExecutor = getOrCreateTaskExecutor(localNode.name());
 
-        ExecutionContext<Object[]> targetCtx = TestBuilders.executionContext()
+        ExecutionContext<Object[]> targetCtx = ExecutionContextBuilderImpl.executionContext()
                 .queryId(queryId)
                 .executor(taskExecutor)
                 .fragment(new FragmentDescription(TARGET_FRAGMENT_ID, true, Long2ObjectMaps.emptyMap(), null, null, null))
@@ -545,7 +546,7 @@ public class ExchangeExecutionTest extends AbstractExecutionTest<Object[]> {
     ) {
         QueryTaskExecutor taskExecutor = getOrCreateTaskExecutor(localNode.name());
 
-        ExecutionContext<Object[]> sourceCtx = TestBuilders.executionContext()
+        ExecutionContext<Object[]> sourceCtx = ExecutionContextBuilderImpl.executionContext()
                 .queryId(queryId)
                 .executor(taskExecutor)
                 .fragment(new FragmentDescription(SOURCE_FRAGMENT_ID, true, Long2ObjectMaps.emptyMap(), null, null, null))
@@ -577,7 +578,7 @@ public class ExchangeExecutionTest extends AbstractExecutionTest<Object[]> {
     ) {
         QueryTaskExecutor taskExecutor = getOrCreateTaskExecutor(localNode.name());
 
-        ExecutionContext<Object[]> sourceCtx = TestBuilders.executionContext()
+        ExecutionContext<Object[]> sourceCtx = ExecutionContextBuilderImpl.executionContext()
                 .queryId(queryId)
                 .executor(taskExecutor)
                 .fragment(new FragmentDescription(SOURCE_FRAGMENT_ID, true, Long2ObjectMaps.emptyMap(), null, null, null))

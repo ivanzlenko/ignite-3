@@ -18,7 +18,7 @@
 package org.apache.ignite.internal.sql.engine.planner;
 
 import static org.apache.ignite.internal.sql.engine.framework.DataProvider.fromCollection;
-import static org.apache.ignite.internal.sql.engine.framework.TestBuilders.tableScan;
+import static org.apache.ignite.internal.sql.engine.framework.ScannableTableFactory.tableScan;
 import static org.apache.ignite.internal.sql.engine.metadata.IgniteMdSelectivity.COMPARISON_SELECTIVITY;
 import static org.apache.ignite.internal.sql.engine.metadata.IgniteMdSelectivity.EQ_SELECTIVITY;
 import static org.apache.ignite.internal.sql.engine.metadata.IgniteMdSelectivity.IS_NOT_NULL_SELECTIVITY;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.apache.ignite.internal.lang.IgniteStringBuilder;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.ClusterBuilderImpl;
 import org.apache.ignite.internal.sql.engine.framework.TestCluster;
 import org.apache.ignite.internal.sql.engine.framework.TestNode;
 import org.apache.ignite.internal.sql.engine.util.TpcTable;
@@ -46,7 +46,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class SelectRowCountEstimationTest extends BaseRowsProcessedEstimationTest {
     private static final int TABLE_REAL_SIZE = 73_049;
 
-    private static final TestCluster CLUSTER = TestBuilders.cluster()
+    private static final TestCluster CLUSTER = ClusterBuilderImpl.cluster()
             .nodes("N1")
             .defaultAssignmentsProvider(tableName -> (partNum, includeBackups) -> IntStream.range(0, partNum)
                     .mapToObj(part -> List.of("N1"))

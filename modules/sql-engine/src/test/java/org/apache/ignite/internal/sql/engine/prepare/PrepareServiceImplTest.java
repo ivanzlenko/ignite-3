@@ -48,7 +48,7 @@ import org.apache.ignite.internal.sql.SqlCommon;
 import org.apache.ignite.internal.sql.engine.QueryCancel;
 import org.apache.ignite.internal.sql.engine.SqlOperationContext;
 import org.apache.ignite.internal.sql.engine.framework.PredefinedSchemaManager;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.prepare.ddl.DdlSqlToCommandConverter;
 import org.apache.ignite.internal.sql.engine.schema.IgniteSchema;
 import org.apache.ignite.internal.sql.engine.schema.IgniteTable;
@@ -257,7 +257,7 @@ public class PrepareServiceImplTest extends BaseIgniteAbstractTest {
     @ParameterizedTest
     @MethodSource("parameterTypes")
     public void prepareParamInPredicateAllTypes(NativeType nativeType, int precision, int scale) {
-        IgniteTable table = TestBuilders.table()
+        IgniteTable table = TableBuilderImpl.table()
                 .name("T")
                 .addColumn("C", nativeType)
                 .distribution(IgniteDistributions.single())
@@ -285,7 +285,7 @@ public class PrepareServiceImplTest extends BaseIgniteAbstractTest {
 
     @Test
     public void timeoutedPlanShouldBeRemovedFromCache() throws InterruptedException {
-        IgniteTable igniteTable = TestBuilders.table()
+        IgniteTable igniteTable = TableBuilderImpl.table()
                 .name("T")
                 .addColumn("C", NativeTypes.INT32)
                 .distribution(IgniteDistributions.single())
@@ -352,7 +352,7 @@ public class PrepareServiceImplTest extends BaseIgniteAbstractTest {
 
     @Test
     public void testDoNotFailPlanningOnMissingSchemaThatIsNotUsed() {
-        IgniteTable table = TestBuilders.table()
+        IgniteTable table = TableBuilderImpl.table()
                 .name("T")
                 .addColumn("C", NativeTypes.INT32)
                 .distribution(IgniteDistributions.single())
@@ -411,7 +411,7 @@ public class PrepareServiceImplTest extends BaseIgniteAbstractTest {
     }
 
     private static IgniteSchema createSchema() {
-        IgniteTable table = TestBuilders.table()
+        IgniteTable table = TableBuilderImpl.table()
                 .name("T")
                 .addColumn("A", NativeTypes.INT64)
                 .addColumn("C", NativeTypes.INT32)

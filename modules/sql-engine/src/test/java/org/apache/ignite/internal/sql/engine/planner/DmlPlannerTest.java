@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 import org.apache.calcite.rel.type.RelDataType;
 import org.apache.calcite.rex.RexNode;
 import org.apache.calcite.sql.validate.SqlValidatorException;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.rel.IgniteExchange;
 import org.apache.ignite.internal.sql.engine.rel.IgniteKeyValueModify;
 import org.apache.ignite.internal.sql.engine.rel.IgniteProject;
@@ -171,7 +171,7 @@ public class DmlPlannerTest extends AbstractPlannerTest {
     @ParameterizedTest
     @MethodSource("distributionsForDelete")
     public void testDelete(IgniteDistribution distribution) throws Exception {
-        IgniteTable test1 = TestBuilders.table()
+        IgniteTable test1 = TableBuilderImpl.table()
                 .name("TEST1")
                 .addColumn("C1", NativeTypes.INT32)
                 .addKeyColumn("KEY1", NativeTypes.INT32)
@@ -251,7 +251,7 @@ public class DmlPlannerTest extends AbstractPlannerTest {
     @ParameterizedTest
     @MethodSource("updatePrimaryKey")
     public void testDoNotAllowToModifyPrimaryKeyColumns(String query) {
-        IgniteTable test = TestBuilders.table()
+        IgniteTable test = TableBuilderImpl.table()
                 .name("TEST")
                 .addKeyColumn("ID", NativeTypes.INT32)
                 .addColumn("VAL", NativeTypes.INT32)
@@ -269,7 +269,7 @@ public class DmlPlannerTest extends AbstractPlannerTest {
 
     @Test
     public void testValuesNodeTypeDerivationForDefaultOperator() throws Exception {
-        IgniteTable test = TestBuilders.table()
+        IgniteTable test = TableBuilderImpl.table()
                 .name("TEST")
                 .addKeyColumn("ID", NativeTypes.INT32)
                 .addColumn("UUID_VAL", NativeTypes.UUID, new UUID(1L, 2L))
@@ -321,7 +321,7 @@ public class DmlPlannerTest extends AbstractPlannerTest {
 
     // Class name is fully-qualified because AbstractPlannerTest defines a class with the same name.
     private static IgniteTable newTestTable(String tableName, IgniteDistribution distribution) {
-        return TestBuilders.table()
+        return TableBuilderImpl.table()
                 .name(tableName)
                 .addColumn("C1", NativeTypes.INT32)
                 .addColumn("C2", NativeTypes.INT32)

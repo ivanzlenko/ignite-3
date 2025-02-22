@@ -71,7 +71,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests for test execution runtime used in benchmarking.
  */
-public class TestClusterTest extends BaseIgniteAbstractTest {
+class TestClusterTest extends BaseIgniteAbstractTest {
 
     private final ScannableTable table = new ScannableTable() {
         @Override
@@ -131,7 +131,7 @@ public class TestClusterTest extends BaseIgniteAbstractTest {
     };
 
     // @formatter:off
-    private final TestCluster cluster = TestBuilders.cluster()
+    private final TestCluster cluster = ClusterBuilderImpl.cluster()
             .nodes("N1", "N2")
             .addTable()
                 .name("T1")
@@ -167,7 +167,7 @@ public class TestClusterTest extends BaseIgniteAbstractTest {
     // @formatter:on
 
     @AfterEach
-    public void stopCluster() throws Exception {
+    void stopCluster() throws Exception {
         cluster.stop();
     }
 
@@ -175,7 +175,7 @@ public class TestClusterTest extends BaseIgniteAbstractTest {
      * Runs a simple SELECT query.
      */
     @Test
-    public void testSimpleQuery() {
+    void testSimpleQuery() {
         cluster.start();
 
         TestNode gatewayNode = cluster.node("N1");
@@ -193,7 +193,7 @@ public class TestClusterTest extends BaseIgniteAbstractTest {
     }
 
     @Test
-    public void testSimpleFromCreatedTableByDdl() {
+    void testSimpleFromCreatedTableByDdl() {
         cluster.start();
 
         TestNode gatewayNode = cluster.node("N1");
@@ -216,7 +216,7 @@ public class TestClusterTest extends BaseIgniteAbstractTest {
     }
 
     @Test
-    public void testSelectByKey() {
+    void testSelectByKey() {
         cluster.start();
 
         TestNode gatewayNode = cluster.node("N1");
@@ -233,7 +233,7 @@ public class TestClusterTest extends BaseIgniteAbstractTest {
     }
 
     @Test
-    public void testSelectRange() {
+    void testSelectRange() {
         cluster.start();
 
         TestNode gatewayNode = cluster.node("N1");
@@ -253,7 +253,7 @@ public class TestClusterTest extends BaseIgniteAbstractTest {
 
     /** Check that already stopped message service correctly process incoming message. */
     @Test
-    public void stoppedMessageServiceNotThrowsException() throws Exception {
+    void stoppedMessageServiceNotThrowsException() throws Exception {
         cluster.start();
 
         TestNode gatewayNode = cluster.node("N1");
@@ -281,7 +281,7 @@ public class TestClusterTest extends BaseIgniteAbstractTest {
 
     /** Checks the propagation of hybrid logical time from the initiator to other nodes. */
     @Test
-    public void testHybridTimestampPropagationFromInitiator() {
+    void testHybridTimestampPropagationFromInitiator() {
         cluster.start();
 
         TestNode initiator = cluster.node("N1");
@@ -304,7 +304,7 @@ public class TestClusterTest extends BaseIgniteAbstractTest {
 
     /** Checks the propagation of hybrid logical time from other nodes to the initiator. */
     @Test
-    public void testHybridTimestampPropagationToInitiator() {
+    void testHybridTimestampPropagationToInitiator() {
         cluster.start();
 
         TestNode initiator = cluster.node("N1");
@@ -335,7 +335,7 @@ public class TestClusterTest extends BaseIgniteAbstractTest {
     }
 
     @Test
-    public void testQuerySystemViews() {
+    void testQuerySystemViews() {
         cluster.start();
 
         TestNode gatewayNode = cluster.node("N1");
@@ -350,7 +350,7 @@ public class TestClusterTest extends BaseIgniteAbstractTest {
     }
 
     @Test
-    public void testNodeInitSchema() {
+    void testNodeInitSchema() {
         cluster.start();
 
         TestNode gatewayNode = cluster.node("N1");
@@ -362,7 +362,7 @@ public class TestClusterTest extends BaseIgniteAbstractTest {
     }
 
     @Test
-    public void testGetCountPlan() {
+    void testGetCountPlan() {
         cluster.start();
 
         TestNode gatewayNode = cluster.node("N1");
@@ -377,7 +377,7 @@ public class TestClusterTest extends BaseIgniteAbstractTest {
     }
 
     @Test
-    public void testExecutionWithDynamicParam() {
+    void testExecutionWithDynamicParam() {
         cluster.start();
 
         TestNode node = cluster.node("N1");
@@ -394,7 +394,7 @@ public class TestClusterTest extends BaseIgniteAbstractTest {
     }
 
     @Test
-    public void testExecutionWithMissingDynamicParam() {
+    void testExecutionWithMissingDynamicParam() {
         cluster.start();
 
         TestNode node = cluster.node("N1");

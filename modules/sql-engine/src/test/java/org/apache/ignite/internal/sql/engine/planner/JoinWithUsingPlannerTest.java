@@ -30,7 +30,7 @@ import java.util.stream.Stream;
 import org.apache.calcite.rel.type.RelDataType;
 import org.apache.calcite.runtime.CalciteContextException;
 import org.apache.calcite.sql.type.SqlTypeName;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.schema.IgniteSchema;
 import org.apache.ignite.internal.sql.engine.trait.IgniteDistributions;
 import org.apache.ignite.internal.sql.engine.util.Commons;
@@ -54,13 +54,13 @@ public class JoinWithUsingPlannerTest extends AbstractPlannerTest {
     @BeforeAll
     public static void init() {
         IgniteSchema publicSchema = createSchema("PUBLIC",
-                TestBuilders.table().name("T1")
+                TableBuilderImpl.table().name("T1")
                         .addColumn("EMPID", NativeTypes.INT32)
                         .addColumn("DEPTID", NativeTypes.INT32)
                         .addColumn("NAME", NativeTypes.STRING)
                         .distribution(IgniteDistributions.random())
                         .build(),
-                TestBuilders.table().name("T2")
+                TableBuilderImpl.table().name("T2")
                         .addColumn("DEPTID", NativeTypes.INT32)
                         .addColumn("NAME", NativeTypes.STRING)
                         .addColumn("PARENTID", NativeTypes.INT32)
@@ -69,7 +69,7 @@ public class JoinWithUsingPlannerTest extends AbstractPlannerTest {
         );
 
         IgniteSchema otherSchema = createSchema("OTHER",
-                TestBuilders.table().name("T3")
+                TableBuilderImpl.table().name("T3")
                         .addColumn("EMPID", NativeTypes.INT32)
                         .addColumn("DEPTID", NativeTypes.INT32)
                         .addColumn("D", NativeTypes.DATE)
@@ -182,12 +182,12 @@ public class JoinWithUsingPlannerTest extends AbstractPlannerTest {
         NativeType right = type2.nativeType;
 
         IgniteSchema publicSchema = createSchema("PUBLIC",
-                TestBuilders.table().name("T1")
+                TableBuilderImpl.table().name("T1")
                         .addColumn("A", left)
                         .addColumn("B", NativeTypes.INT32)
                         .distribution(IgniteDistributions.random())
                         .build(),
-                TestBuilders.table().name("T2")
+                TableBuilderImpl.table().name("T2")
                         .addColumn("C", NativeTypes.STRING)
                         .addColumn("A", right)
                         .distribution(IgniteDistributions.random())

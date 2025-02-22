@@ -32,8 +32,8 @@ import org.apache.calcite.rel.logical.LogicalProject;
 import org.apache.calcite.rex.RexCorrelVariable;
 import org.apache.calcite.rex.RexFieldAccess;
 import org.apache.calcite.sql.SqlNode;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.prepare.IgnitePlanner;
 import org.apache.ignite.internal.sql.engine.prepare.PlannerPhase;
 import org.apache.ignite.internal.sql.engine.prepare.PlanningContext;
@@ -240,7 +240,7 @@ public class CorrelatedSubqueryPlannerTest extends AbstractPlannerTest {
     static IgniteTable createTestTable(String... columns) {
         assert columns.length > 0;
 
-        TableBuilder tableBuilder = TestBuilders.table()
+        TableBuilder tableBuilder = TableBuilderImpl.table()
                 .name("T1")
                 .distribution(IgniteDistributions.single());
 

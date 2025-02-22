@@ -25,7 +25,7 @@ import org.apache.ignite.internal.metrics.MetricManagerImpl;
 import org.apache.ignite.internal.metrics.MetricSet;
 import org.apache.ignite.internal.sql.engine.SqlOperationContext;
 import org.apache.ignite.internal.sql.engine.framework.PredefinedSchemaManager;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.planner.AbstractPlannerTest;
 import org.apache.ignite.internal.sql.engine.prepare.PrepareService;
 import org.apache.ignite.internal.sql.engine.prepare.PrepareServiceImpl;
@@ -52,7 +52,7 @@ public class PlanningCacheMetricsTest extends AbstractPlannerTest {
         // Run clean up tasks in the current thread, so no eviction event is delayed.
         CacheFactory cacheFactory = CaffeineCacheFactory.create(Runnable::run);
 
-        IgniteTable table = TestBuilders.table()
+        IgniteTable table = TableBuilderImpl.table()
                 .name("T")
                 .addColumn("A", NativeTypes.INT32, false)
                 .addColumn("B", NativeTypes.INT32, false)

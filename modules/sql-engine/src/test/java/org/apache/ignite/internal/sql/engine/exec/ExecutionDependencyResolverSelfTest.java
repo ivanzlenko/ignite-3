@@ -29,8 +29,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.planner.AbstractPlannerTest;
 import org.apache.ignite.internal.sql.engine.rel.IgniteRel;
 import org.apache.ignite.internal.sql.engine.schema.IgniteSchema;
@@ -256,7 +256,7 @@ public class ExecutionDependencyResolverSelfTest extends AbstractPlannerTest {
     }
 
     private static IgniteTable createTestTable(String tableName, @Nullable UnaryOperator<TableBuilder> changer) {
-        TableBuilder testTable = TestBuilders.table()
+        TableBuilder testTable = TableBuilderImpl.table()
                 .name(tableName)
                 .addColumn("ID", NativeTypes.INT32)
                 .addColumn("VAL", NativeTypes.STRING)

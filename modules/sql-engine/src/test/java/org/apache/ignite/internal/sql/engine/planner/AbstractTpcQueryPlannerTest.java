@@ -34,7 +34,7 @@ import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.ClusterBuilderImpl;
 import org.apache.ignite.internal.sql.engine.framework.TestCluster;
 import org.apache.ignite.internal.sql.engine.framework.TestNode;
 import org.apache.ignite.internal.sql.engine.prepare.MultiStepPlan;
@@ -72,7 +72,7 @@ abstract class AbstractTpcQueryPlannerTest extends AbstractPlannerTest {
         queryLoader = queryId -> invoke(queryLoaderMethod, queryId);
         planLoader = queryId -> invoke(planLoaderMethod, queryId);
 
-        CLUSTER = TestBuilders.cluster()
+        CLUSTER = ClusterBuilderImpl.cluster()
                 .nodes("N1")
                 .planningTimeout(1, TimeUnit.MINUTES)
                 .build();

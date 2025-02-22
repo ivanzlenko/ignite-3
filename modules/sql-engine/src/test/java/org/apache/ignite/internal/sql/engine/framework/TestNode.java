@@ -422,7 +422,7 @@ public class TestNode implements LifecycleAware {
         return service;
     }
 
-    private QueryPlan awaitPlan(CompletableFuture<QueryPlan> future) {
+    private static QueryPlan awaitPlan(CompletableFuture<QueryPlan> future) {
         return await(future, AWAIT_PLAN_TIMEOUT_MINUTES, TimeUnit.MINUTES);
     }
 

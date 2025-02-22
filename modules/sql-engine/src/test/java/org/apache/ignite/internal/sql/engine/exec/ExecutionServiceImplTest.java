@@ -115,7 +115,7 @@ import org.apache.ignite.internal.sql.engine.framework.ExplicitTxContext;
 import org.apache.ignite.internal.sql.engine.framework.ImplicitTxContext;
 import org.apache.ignite.internal.sql.engine.framework.NoOpTransaction;
 import org.apache.ignite.internal.sql.engine.framework.PredefinedSchemaManager;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.message.ExecutionContextAwareMessage;
 import org.apache.ignite.internal.sql.engine.message.MessageListener;
 import org.apache.ignite.internal.sql.engine.message.MessageService;
@@ -200,7 +200,7 @@ public class ExecutionServiceImplTest extends BaseIgniteAbstractTest {
             nodeNames.get(2), List.of(new Object[]{2, 2}, new Object[]{5, 5}, new Object[]{8, 8})
     );
 
-    private final IgniteTable table = TestBuilders.table()
+    private final IgniteTable table = TableBuilderImpl.table()
             .name("TEST_TBL")
             .addKeyColumn("ID", NativeTypes.INT32)
             .addColumn("VAL", NativeTypes.INT32)

@@ -40,7 +40,8 @@ import org.apache.ignite.internal.sql.engine.exec.PartitionWithConsistencyToken;
 import org.apache.ignite.internal.sql.engine.exec.QueryTaskExecutor;
 import org.apache.ignite.internal.sql.engine.exec.exp.ExpressionFactory;
 import org.apache.ignite.internal.sql.engine.exec.mapping.ColocationGroup;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.ExecutionContextBuilderImpl;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.schema.IgniteTable;
 import org.apache.ignite.internal.sql.engine.schema.PartitionCalculator;
 import org.apache.ignite.internal.sql.engine.schema.TableDescriptor;
@@ -95,7 +96,7 @@ public class PartitionPruningPredicateSelfTest extends BaseIgniteAbstractTest {
 
         NativeType nativeType = getNativeType(columnType);
 
-        IgniteTable table = TestBuilders.table()
+        IgniteTable table = TableBuilderImpl.table()
                 .name("T")
                 .partitions(5)
                 .addKeyColumn("c1", nativeType)
@@ -142,7 +143,7 @@ public class PartitionPruningPredicateSelfTest extends BaseIgniteAbstractTest {
 
         NativeType nativeType = getNativeType(columnType);
 
-        IgniteTable table = TestBuilders.table()
+        IgniteTable table = TableBuilderImpl.table()
                 .name("T")
                 .partitions(5)
                 .addKeyColumn("c1", nativeType)
@@ -202,7 +203,7 @@ public class PartitionPruningPredicateSelfTest extends BaseIgniteAbstractTest {
         Map<String, List<PartitionWithConsistencyToken>> dynamicActual = new HashMap<>();
 
         for (String nodeName : group.nodeNames()) {
-            ExecutionContext<Object[]> ctx = TestBuilders.executionContext()
+            ExecutionContext<Object[]> ctx = ExecutionContextBuilderImpl.executionContext()
                     .queryId(randomUUID())
                     .localNode(new ClusterNodeImpl(randomUUID(), nodeName, new NetworkAddress("localhost", 123)))
                     .executor(Mockito.mock(QueryTaskExecutor.class))

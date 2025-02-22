@@ -28,8 +28,8 @@ import org.apache.calcite.rel.RelCollation;
 import org.apache.calcite.rel.RelCollations;
 import org.apache.calcite.rel.RelFieldCollation;
 import org.apache.calcite.rel.core.Join;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.rel.IgniteRel;
 import org.apache.ignite.internal.sql.engine.rel.IgniteSort;
 import org.apache.ignite.internal.sql.engine.rel.IgniteTableScan;
@@ -2655,7 +2655,7 @@ public class MergeJoinPlannerTest extends AbstractPlannerTest {
     }
 
     private static IgniteTable createTableA(String tableName) {
-        return TestBuilders.table()
+        return TableBuilderImpl.table()
                 .name(tableName)
                 .addColumn("C1", NativeTypes.INT32)
                 .addColumn("C2", NativeTypes.INT32)
@@ -2670,7 +2670,7 @@ public class MergeJoinPlannerTest extends AbstractPlannerTest {
     }
 
     private static IgniteTable createTableB(String tableName, Consumer<TableBuilder> changer) {
-        TableBuilder tableBuilder = TestBuilders.table()
+        TableBuilder tableBuilder = TableBuilderImpl.table()
                 .name(tableName)
                 .distribution(IgniteDistributions.single())
                 .addColumn("C1", NativeTypes.INT32)

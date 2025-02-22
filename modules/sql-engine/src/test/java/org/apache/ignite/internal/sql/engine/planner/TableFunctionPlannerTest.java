@@ -19,7 +19,7 @@ package org.apache.ignite.internal.sql.engine.planner;
 
 import java.util.function.UnaryOperator;
 import org.apache.calcite.rel.core.Join;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilder;
 import org.apache.ignite.internal.sql.engine.rel.IgniteCorrelatedNestedLoopJoin;
 import org.apache.ignite.internal.sql.engine.rel.IgniteExchange;
 import org.apache.ignite.internal.sql.engine.rel.IgniteTableFunctionScan;

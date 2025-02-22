@@ -38,7 +38,7 @@ import org.apache.calcite.rel.RelVisitor;
 import org.apache.ignite.internal.metrics.MetricManagerImpl;
 import org.apache.ignite.internal.sql.engine.SqlOperationContext;
 import org.apache.ignite.internal.sql.engine.framework.PredefinedSchemaManager;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.prepare.IgnitePlanner;
 import org.apache.ignite.internal.sql.engine.prepare.PlanningContext;
 import org.apache.ignite.internal.sql.engine.prepare.PrepareService;
@@ -141,7 +141,7 @@ public class PlannerTimeoutTest extends AbstractPlannerTest {
     }
 
     private static IgniteTable createTestTable(String tableName) {
-        IgniteTable igniteTable = TestBuilders.table()
+        IgniteTable igniteTable = TableBuilderImpl.table()
                 .name(tableName)
                 .addColumn("A", NativeTypes.INT32)
                 .addColumn("B", NativeTypes.INT32)

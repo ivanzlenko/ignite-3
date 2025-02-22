@@ -20,8 +20,8 @@ package org.apache.ignite.internal.sql.engine.planner;
 import static org.apache.ignite.internal.sql.engine.util.RexUtils.doubleFromRex;
 
 import org.apache.calcite.util.ImmutableIntList;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.rel.IgniteExchange;
 import org.apache.ignite.internal.sql.engine.rel.IgniteIndexScan;
 import org.apache.ignite.internal.sql.engine.rel.IgniteLimit;
@@ -198,7 +198,7 @@ public class LimitOffsetPlannerTest extends AbstractPlannerTest {
         // Tests for planner for limit/sort in nested subqueries
         // See bug https://issues.apache.org/jira/browse/IGNITE-21946
 
-        TableBuilder builder = TestBuilders.table()
+        TableBuilder builder = TableBuilderImpl.table()
                 .name("TEST")
                 .addColumn("A", NativeTypes.INT32)
                 .size(ROW_CNT)
@@ -244,7 +244,7 @@ public class LimitOffsetPlannerTest extends AbstractPlannerTest {
 
     @Test
     public void testOffsetFetchPropagationForSort() throws Exception {
-        TableBuilder builder = TestBuilders.table()
+        TableBuilder builder = TableBuilderImpl.table()
                 .name("TEST")
                 .addKeyColumn("ID", NativeTypes.INT32)
                 .addColumn("A", NativeTypes.INT32)
@@ -274,7 +274,7 @@ public class LimitOffsetPlannerTest extends AbstractPlannerTest {
      * Creates PUBLIC schema with one TEST table.
      */
     private static IgniteSchema createSchemaWithTable(IgniteDistribution distr, String... indexesColumns) {
-        TableBuilder builder = TestBuilders.table()
+        TableBuilder builder = TableBuilderImpl.table()
                 .name("TEST")
                 .addColumn("ID", NativeTypes.INT32)
                 .addColumn("VAL", NativeTypes.STRING)

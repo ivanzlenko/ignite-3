@@ -28,7 +28,7 @@ import java.util.List;
 import org.apache.calcite.plan.RelOptUtil;
 import org.apache.calcite.rel.RelNode;
 import org.apache.calcite.util.ImmutableIntList;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.rel.AbstractIgniteJoin;
 import org.apache.ignite.internal.sql.engine.rel.IgniteExchange;
 import org.apache.ignite.internal.sql.engine.rel.IgniteIndexScan;
@@ -256,7 +256,7 @@ public class JoinColocationPlannerTest extends AbstractPlannerTest {
     }
 
     static IgniteTable simpleTable(String tableName, int size) {
-        return TestBuilders.table()
+        return TableBuilderImpl.table()
                 .name(tableName)
                 .size(size)
                 .distribution(someAffinity())
@@ -271,7 +271,7 @@ public class JoinColocationPlannerTest extends AbstractPlannerTest {
     }
 
     static IgniteTable simpleTableHashPk(String tableName, int size) {
-        return TestBuilders.table()
+        return TableBuilderImpl.table()
                 .name(tableName)
                 .size(size)
                 .distribution(someAffinity())
@@ -291,7 +291,7 @@ public class JoinColocationPlannerTest extends AbstractPlannerTest {
     }
 
     private static IgniteTable complexTbl(String tableName, int size, IgniteDistribution distribution) {
-        return TestBuilders.table()
+        return TableBuilderImpl.table()
                 .name(tableName)
                 .size(size)
                 .distribution(distribution)

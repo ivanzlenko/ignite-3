@@ -34,7 +34,8 @@ import org.apache.calcite.sql.type.SqlTypeName;
 import org.apache.ignite.internal.network.ClusterNodeImpl;
 import org.apache.ignite.internal.sql.engine.exec.mapping.ColocationGroup;
 import org.apache.ignite.internal.sql.engine.exec.mapping.FragmentDescription;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.ExecutionContextBuilderImpl;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.prepare.pruning.PartitionPruningColumns;
 import org.apache.ignite.internal.sql.engine.prepare.pruning.PartitionPruningMetadata;
 import org.apache.ignite.internal.sql.engine.schema.IgniteTable;
@@ -71,7 +72,7 @@ public class PartitionProvidersTest extends BaseIgniteAbstractTest {
                 "n3", List.of(new PartitionWithConsistencyToken(3, 3L))
         );
 
-        IgniteTable table = TestBuilders.table()
+        IgniteTable table = TableBuilderImpl.table()
                 .name("T1")
                 .addKeyColumn("C1", NativeTypes.INT32)
                 .partitions(42)
@@ -116,7 +117,7 @@ public class PartitionProvidersTest extends BaseIgniteAbstractTest {
         assignments.put(3, new NodeWithConsistencyToken("n1", 3));
         assignments.put(4, new NodeWithConsistencyToken("n3", 4));
 
-        IgniteTable table = TestBuilders.table()
+        IgniteTable table = TableBuilderImpl.table()
                 .name("T1")
                 .addKeyColumn("C1", NativeTypes.INT32)
                 .partitions(assignments.size())
@@ -160,7 +161,7 @@ public class PartitionProvidersTest extends BaseIgniteAbstractTest {
         assignments.put(3, new NodeWithConsistencyToken("n1", 3));
         assignments.put(4, new NodeWithConsistencyToken("n3", 4));
 
-        IgniteTable table = TestBuilders.table()
+        IgniteTable table = TableBuilderImpl.table()
                 .name("T1")
                 .addKeyColumn("C1", NativeTypes.INT32)
                 .partitions(assignments.size())
@@ -202,7 +203,7 @@ public class PartitionProvidersTest extends BaseIgniteAbstractTest {
         Long2ObjectMap<ColocationGroup> map = new Long2ObjectOpenHashMap<>();
         map.put(GROUP_ID, colocationGroup);
 
-        return TestBuilders.executionContext()
+        return ExecutionContextBuilderImpl.executionContext()
                 .queryId(randomUUID())
                 .executor(queryTaskExecutor)
                 .fragment(new FragmentDescription(1, false, map, null, null, metadata))

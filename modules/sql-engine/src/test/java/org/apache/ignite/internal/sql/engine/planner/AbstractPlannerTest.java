@@ -84,10 +84,10 @@ import org.apache.ignite.internal.sql.engine.SqlOperationContext;
 import org.apache.ignite.internal.sql.engine.exec.mapping.IdGenerator;
 import org.apache.ignite.internal.sql.engine.exec.mapping.QuerySplitter;
 import org.apache.ignite.internal.sql.engine.externalize.RelJsonReader;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders.HashIndexBuilder;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders.SortedIndexBuilder;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.HashIndexBuilder;
+import org.apache.ignite.internal.sql.engine.framework.SortedIndexBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.prepare.Fragment;
 import org.apache.ignite.internal.sql.engine.prepare.IgnitePlanner;
 import org.apache.ignite.internal.sql.engine.prepare.PlannerHelper;
@@ -1055,7 +1055,7 @@ public abstract class AbstractPlannerTest extends IgniteAbstractTest {
 
     /** Creates schema using given table builders. */
     protected static IgniteSchema createSchemaFrom(Function<TableBuilder, TableBuilder>... tables) {
-        return createSchema(Arrays.stream(tables).map(op -> op.apply(TestBuilders.table()).build()).toArray(IgniteTable[]::new));
+        return createSchema(Arrays.stream(tables).map(op -> op.apply(TableBuilderImpl.table()).build()).toArray(IgniteTable[]::new));
     }
 
     /** Creates a function, which builds sorted index with given column names and with default collation. */

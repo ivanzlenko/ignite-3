@@ -32,7 +32,7 @@ import java.util.function.UnaryOperator;
 import org.apache.calcite.rel.RelNode;
 import org.apache.calcite.rel.core.AggregateCall;
 import org.apache.calcite.sql.fun.SqlSingleValueAggFunction;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilder;
 import org.apache.ignite.internal.sql.engine.rel.IgniteAggregate;
 import org.apache.ignite.internal.sql.engine.rel.agg.IgniteReduceAggregateBase;
 import org.apache.ignite.internal.sql.engine.schema.IgniteIndex.Collation;

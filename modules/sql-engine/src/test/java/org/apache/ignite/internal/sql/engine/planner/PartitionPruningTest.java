@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.List;
 import org.apache.calcite.rex.RexLiteral;
 import org.apache.calcite.sql.type.SqlTypeName;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.prepare.IgniteRelShuttle;
 import org.apache.ignite.internal.sql.engine.prepare.pruning.PartitionPruningColumns;
 import org.apache.ignite.internal.sql.engine.prepare.pruning.PartitionPruningMetadata;
@@ -45,7 +45,7 @@ public class PartitionPruningTest extends AbstractPlannerTest {
 
     @Test
     public void testTableScan() throws Exception {
-        IgniteTable table = TestBuilders.table()
+        IgniteTable table = TableBuilderImpl.table()
                 .name("T")
                 .addKeyColumn("C1", NativeTypes.INT32)
                 .addColumn("C2", NativeTypes.INT32)
@@ -64,7 +64,7 @@ public class PartitionPruningTest extends AbstractPlannerTest {
 
     @Test
     public void testTableScanWithRequiredColumns() throws Exception {
-        IgniteTable table = TestBuilders.table()
+        IgniteTable table = TableBuilderImpl.table()
                 .name("T")
                 .addKeyColumn("C1", NativeTypes.INT32)
                 .addColumn("C2", NativeTypes.INT32)
@@ -83,7 +83,7 @@ public class PartitionPruningTest extends AbstractPlannerTest {
 
     @Test
     public void testIndexScan() throws Exception {
-        IgniteTable table = TestBuilders.table()
+        IgniteTable table = TableBuilderImpl.table()
                 .name("T")
                 .addKeyColumn("C1", NativeTypes.INT32)
                 .addColumn("C2", NativeTypes.INT32)
@@ -105,7 +105,7 @@ public class PartitionPruningTest extends AbstractPlannerTest {
 
     @Test
     public void testIndexScanWithRequiredColumns() throws Exception {
-        IgniteTable table = TestBuilders.table()
+        IgniteTable table = TableBuilderImpl.table()
                 .name("T")
                 .addKeyColumn("C1", NativeTypes.INT32)
                 .addColumn("C2", NativeTypes.INT32)
@@ -127,14 +127,14 @@ public class PartitionPruningTest extends AbstractPlannerTest {
 
     @Test
     public void testMultipleScans() throws Exception {
-        IgniteTable table1 = TestBuilders.table()
+        IgniteTable table1 = TableBuilderImpl.table()
                 .name("T1")
                 .addKeyColumn("C1", NativeTypes.INT32)
                 .addColumn("C2", NativeTypes.INT32)
                 .distribution(IgniteDistributions.affinity(List.of(0), 1, 2))
                 .build();
 
-        IgniteTable table2 = TestBuilders.table()
+        IgniteTable table2 = TableBuilderImpl.table()
                 .name("T2")
                 .addKeyColumn("C1", NativeTypes.INT32)
                 .addColumn("C2", NativeTypes.INT32)
@@ -157,14 +157,14 @@ public class PartitionPruningTest extends AbstractPlannerTest {
 
     @Test
     public void testExtractorIsReusable() throws Exception {
-        IgniteTable table1 = TestBuilders.table()
+        IgniteTable table1 = TableBuilderImpl.table()
                 .name("T1")
                 .addKeyColumn("C1", NativeTypes.INT32)
                 .addColumn("C2", NativeTypes.INT32)
                 .distribution(IgniteDistributions.affinity(List.of(0), 1, 2))
                 .build();
 
-        IgniteTable table2 = TestBuilders.table()
+        IgniteTable table2 = TableBuilderImpl.table()
                 .name("T2")
                 .addKeyColumn("C1", NativeTypes.STRING)
                 .addColumn("C2", NativeTypes.INT32)
@@ -192,7 +192,7 @@ public class PartitionPruningTest extends AbstractPlannerTest {
 
     @Test
     public void testInsert() throws Exception {
-        IgniteTable table = TestBuilders.table()
+        IgniteTable table = TableBuilderImpl.table()
                 .name("T")
                 .addKeyColumn("C1", NativeTypes.INT32)
                 .addKeyColumn("C2", NativeTypes.INT32)
@@ -212,14 +212,14 @@ public class PartitionPruningTest extends AbstractPlannerTest {
 
     @Test
     public void testCorrelatedQuery() throws Exception {
-        IgniteTable table1 = TestBuilders.table()
+        IgniteTable table1 = TableBuilderImpl.table()
                 .name("T1")
                 .addKeyColumn("C1", NativeTypes.INT32)
                 .addColumn("C2", NativeTypes.INT32, false)
                 .distribution(IgniteDistributions.affinity(List.of(0), 1, 2))
                 .build();
 
-        IgniteTable table2 = TestBuilders.table()
+        IgniteTable table2 = TableBuilderImpl.table()
                 .name("T2")
                 .addKeyColumn("C1", NativeTypes.INT32)
                 .addColumn("C2", NativeTypes.INT32)

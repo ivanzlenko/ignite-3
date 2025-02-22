@@ -18,6 +18,7 @@
 package org.apache.ignite.internal.sql.engine.exec;
 
 import static java.util.concurrent.CompletableFuture.completedFuture;
+import static org.apache.ignite.internal.sql.engine.framework.ScannableTableFactory.tableScan;
 import static org.apache.ignite.internal.testframework.IgniteTestUtils.assertThrows;
 import static org.apache.ignite.internal.testframework.IgniteTestUtils.sneakyThrow;
 import static org.apache.ignite.internal.util.CompletableFutures.nullCompletedFuture;
@@ -37,9 +38,9 @@ import org.apache.ignite.internal.replicator.exception.PrimaryReplicaMissExcepti
 import org.apache.ignite.internal.sql.engine.AsyncSqlCursor;
 import org.apache.ignite.internal.sql.engine.InternalSqlRow;
 import org.apache.ignite.internal.sql.engine.QueryProcessor;
+import org.apache.ignite.internal.sql.engine.framework.ClusterBuilderImpl;
 import org.apache.ignite.internal.sql.engine.framework.NoOpTransaction;
 import org.apache.ignite.internal.sql.engine.framework.NoOpTransactionTracker;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
 import org.apache.ignite.internal.sql.engine.framework.TestCluster;
 import org.apache.ignite.internal.sql.engine.framework.TestNode;
 import org.apache.ignite.internal.sql.engine.message.UnknownNodeException;
@@ -81,7 +82,7 @@ public class QueryRecoveryTest extends BaseIgniteAbstractTest {
 
     @BeforeEach
     void startCluster() {
-        cluster = TestBuilders.cluster()
+        cluster = ClusterBuilderImpl.cluster()
                 .nodes(GATEWAY_NODE_NAME, DATA_NODES.toArray(new String[0]))
                 .build();
 
@@ -97,7 +98,7 @@ public class QueryRecoveryTest extends BaseIgniteAbstractTest {
                         .collect(Collectors.toList())
         );
 
-        cluster.setDataProvider("T1", TestBuilders.tableScan((nodeName, partId) ->
+        cluster.setDataProvider("T1", tableScan((nodeName, partId) ->
                 Collections.singleton(new Object[]{partId, partId, nodeName}))
         );
     }
@@ -165,7 +166,7 @@ public class QueryRecoveryTest extends BaseIgniteAbstractTest {
                         .collect(Collectors.toList())
         );
 
-        cluster.setDataProvider("T1", TestBuilders.tableScan((nodeName, partId) -> {
+        cluster.setDataProvider("T1", tableScan((nodeName, partId) -> {
             if (firstTimeThrow.compareAndSet(true, false)) {
                 reassignmentHappened.set(true);
                 return () -> new FailingIterator<>(new PrimaryReplicaMissException(UUID.randomUUID(), 0L, 0L));
@@ -194,7 +195,7 @@ public class QueryRecoveryTest extends BaseIgniteAbstractTest {
                         .collect(Collectors.toList())
         );
 
-        cluster.setDataProvider("T1", TestBuilders.tableScan((nodeName, partId) -> {
+        cluster.setDataProvider("T1", tableScan((nodeName, partId) -> {
             if (firstTimeThrow.compareAndSet(true, false)) {
                 return () -> new FailingIterator<>(new LockException(Transactions.ACQUIRE_LOCK_ERR, "Lock conflict on " + nodeName));
             }

@@ -20,8 +20,8 @@ package org.apache.ignite.internal.sql.engine.planner;
 import java.util.List;
 import java.util.function.UnaryOperator;
 import org.apache.calcite.rel.RelDistribution.Type;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.rel.IgniteExchange;
 import org.apache.ignite.internal.sql.engine.rel.IgniteTrimExchange;
 import org.apache.ignite.internal.sql.engine.rel.set.IgniteColocatedIntersect;
@@ -699,21 +699,21 @@ public class SetOpPlannerTest extends AbstractPlannerTest {
     @EnumSource
     public void testSetOpResultsInLeastRestrictiveType(SetOp setOp) throws Exception {
         IgniteSchema publicSchema = createSchema(
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("TABLE1")
                         .addColumn("C1", NativeTypes.INT32)
                         .addColumn("C2", NativeTypes.STRING)
                         .distribution(someAffinity())
                         .build(),
 
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("TABLE2")
                         .addColumn("C1", NativeTypes.DOUBLE)
                         .addColumn("C2", NativeTypes.STRING)
                         .distribution(someAffinity())
                         .build(),
 
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("TABLE3")
                         .addColumn("C1", NativeTypes.INT64)
                         .addColumn("C2", NativeTypes.STRING)
@@ -739,14 +739,14 @@ public class SetOpPlannerTest extends AbstractPlannerTest {
     @EnumSource
     public void testSetOpDifferentNullability(SetOp setOp) throws Exception {
         IgniteSchema publicSchema = createSchema(
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("TABLE1")
                         .addColumn("C1", NativeTypes.INT32, false)
                         .addColumn("C2", NativeTypes.STRING)
                         .distribution(someAffinity())
                         .build(),
 
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("TABLE2")
                         .addColumn("C1", NativeTypes.INT32, true)
                         .addColumn("C2", NativeTypes.STRING)

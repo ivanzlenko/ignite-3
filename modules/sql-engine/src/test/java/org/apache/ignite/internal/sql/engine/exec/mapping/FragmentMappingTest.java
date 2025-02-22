@@ -20,6 +20,7 @@ package org.apache.ignite.internal.sql.engine.exec.mapping;
 import static java.util.UUID.randomUUID;
 import static org.apache.calcite.tools.Frameworks.newConfigBuilder;
 import static org.apache.ignite.internal.lang.IgniteStringFormatter.format;
+import static org.apache.ignite.internal.sql.engine.framework.TestExecutionDistributionProvider.executionDistributionProviderBuilder;
 import static org.apache.ignite.internal.sql.engine.util.Commons.FRAMEWORK_CONFIG;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -39,8 +40,8 @@ import org.apache.ignite.internal.cluster.management.topology.api.LogicalNode;
 import org.apache.ignite.internal.cluster.management.topology.api.LogicalTopologySnapshot;
 import org.apache.ignite.internal.sql.SqlCommon;
 import org.apache.ignite.internal.sql.engine.exec.mapping.MappingTestRunner.TestSetup;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.planner.AbstractPlannerTest;
 import org.apache.ignite.internal.sql.engine.prepare.IgnitePlanner;
 import org.apache.ignite.internal.sql.engine.prepare.PlanningContext;
@@ -381,7 +382,7 @@ public class FragmentMappingTest extends AbstractPlannerTest {
 
             IgniteDistribution distribution = e.getValue().getFirst();
 
-            TableBuilder tableBuilder = TestBuilders.table().name(tableName);
+            TableBuilder tableBuilder = TableBuilderImpl.table().name(tableName);
 
             // To mimic node system views, id column is node name alias.
             if (distribution.function() instanceof IdentityDistribution) {
@@ -417,7 +418,7 @@ public class FragmentMappingTest extends AbstractPlannerTest {
         LogicalTopologySnapshot logicalTopologySnapshot = newLogicalTopology();
 
         IgniteSchema schema = new IgniteSchema(SqlCommon.DEFAULT_SCHEMA_NAME, 1, dataSources);
-        ExecutionDistributionProvider executionDistributionProvider = TestBuilders.executionDistributionProviderBuilder()
+        ExecutionDistributionProvider executionDistributionProvider = executionDistributionProviderBuilder()
                 .useTablePartitions(true)
                 .addTables(table2Assignments)
                 .build();

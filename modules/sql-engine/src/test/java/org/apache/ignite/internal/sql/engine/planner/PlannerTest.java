@@ -46,8 +46,8 @@ import org.apache.calcite.sql.SqlNode;
 import org.apache.calcite.util.ImmutableIntList;
 import org.apache.calcite.util.Util;
 import org.apache.ignite.internal.sql.engine.exec.NodeWithConsistencyToken;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.metadata.cost.IgniteCostFactory;
 import org.apache.ignite.internal.sql.engine.prepare.IgnitePlanner;
 import org.apache.ignite.internal.sql.engine.prepare.PlannerPhase;
@@ -101,7 +101,7 @@ public class PlannerTest extends AbstractPlannerTest {
 
     @Test
     public void testMergeFilters() throws Exception {
-        IgniteSchema publicSchema = createSchema(TestBuilders.table()
+        IgniteSchema publicSchema = createSchema(TableBuilderImpl.table()
                 .name("TEST")
                 .addColumn("ID", NativeTypes.INT32)
                 .addColumn("VAL", NativeTypes.STRING)
@@ -222,7 +222,7 @@ public class PlannerTest extends AbstractPlannerTest {
 
     @Test
     public void testNotStandardFunctions() throws Exception {
-        IgniteSchema publicSchema = createSchema(TestBuilders.table()
+        IgniteSchema publicSchema = createSchema(TableBuilderImpl.table()
                 .name("TEST")
                 .addColumn("ID", NativeTypes.INT32)
                 .addColumn("VAL", NativeTypes.STRING)
@@ -246,7 +246,7 @@ public class PlannerTest extends AbstractPlannerTest {
 
     @Test
     public void correctPlanningWithOrToUnion() throws Exception {
-        IgniteSchema publicSchema = createSchema(TestBuilders.table()
+        IgniteSchema publicSchema = createSchema(TableBuilderImpl.table()
                 .name("TAB0")
                 .addColumn("PK", NativeTypes.INT32)
                 .addColumn("COL0", NativeTypes.INT32)
@@ -268,13 +268,13 @@ public class PlannerTest extends AbstractPlannerTest {
     @Test
     public void checkTableHintsHandling() throws Exception {
         IgniteSchema publicSchema = createSchema(
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("PERSON")
                         .distribution(IgniteDistributions.affinity(0, nextTableId(), Integer.MIN_VALUE))
                         .addColumn("PK", NativeTypes.INT32)
                         .addColumn("ORG_ID", NativeTypes.INT32)
                         .build(),
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("COMPANY")
                         .distribution(IgniteDistributions.affinity(0, nextTableId(), Integer.MIN_VALUE))
                         .addColumn("PK", NativeTypes.INT32)
@@ -359,11 +359,11 @@ public class PlannerTest extends AbstractPlannerTest {
     @Test
     public void testPlanningWhenDefaultSchemaIsMissing() throws Exception {
         IgniteTable dept = departmentTable(IgniteDistributions.single())
-                .apply(TestBuilders.table())
+                .apply(TableBuilderImpl.table())
                 .build();
 
         IgniteTable emp = employerTable(IgniteDistributions.single())
-                .apply(TestBuilders.table())
+                .apply(TableBuilderImpl.table())
                 .build();
 
         IgniteSchema schema1 = new IgniteSchema("EMP_SCHEMA", 1, List.of(emp));

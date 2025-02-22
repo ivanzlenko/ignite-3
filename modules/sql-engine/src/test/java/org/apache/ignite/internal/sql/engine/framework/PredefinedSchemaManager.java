@@ -52,7 +52,7 @@ public class PredefinedSchemaManager implements SqlSchemaManager {
     }
 
     /** Constructs schema manager from a collection of schemas. */
-    public PredefinedSchemaManager(Collection<IgniteSchema> schemas) {
+    private PredefinedSchemaManager(Collection<IgniteSchema> schemas) {
         SchemaPlus schemaPlus = Frameworks.createRootSchema(false);
         this.tableById = new Int2ObjectOpenHashMap<>();
 

@@ -19,7 +19,7 @@ package org.apache.ignite.internal.sql.engine.planner;
 
 import static org.apache.ignite.internal.sql.engine.trait.IgniteDistributions.single;
 
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.rel.IgniteExchange;
 import org.apache.ignite.internal.sql.engine.rel.IgniteIndexScan;
 import org.apache.ignite.internal.sql.engine.rel.IgniteMergeJoin;
@@ -164,7 +164,7 @@ public class IdentityDistributionPlannerTest extends AbstractPlannerTest {
     }
 
     private static IgniteTable simpleTable(String tableName, int size, IgniteDistribution distribution) {
-        return TestBuilders.table()
+        return TableBuilderImpl.table()
                 .name(tableName)
                 .size(size)
                 .distribution(distribution)
@@ -178,7 +178,7 @@ public class IdentityDistributionPlannerTest extends AbstractPlannerTest {
     }
 
     private static IgniteTable complexTable(String tableName, int size, IgniteDistribution distribution) {
-        return TestBuilders.table()
+        return TableBuilderImpl.table()
                 .name(tableName)
                 .size(size)
                 .distribution(distribution)

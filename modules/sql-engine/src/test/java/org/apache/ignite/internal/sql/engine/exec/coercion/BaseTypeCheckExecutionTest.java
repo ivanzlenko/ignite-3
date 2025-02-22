@@ -17,6 +17,7 @@
 
 package org.apache.ignite.internal.sql.engine.exec.coercion;
 
+import static org.apache.ignite.internal.sql.engine.framework.ScannableTableFactory.tableScan;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -27,8 +28,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.apache.ignite.internal.sql.engine.AsyncSqlCursor;
 import org.apache.ignite.internal.sql.engine.InternalSqlRow;
+import org.apache.ignite.internal.sql.engine.framework.ClusterBuilderImpl;
 import org.apache.ignite.internal.sql.engine.framework.DataProvider;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
 import org.apache.ignite.internal.sql.engine.framework.TestCluster;
 import org.apache.ignite.internal.sql.engine.framework.TestNode;
 import org.apache.ignite.internal.sql.engine.planner.datatypes.utils.TypePair;
@@ -221,7 +222,7 @@ class BaseTypeCheckExecutionTest extends BaseIgniteAbstractTest {
     }
 
     static ClusterWrapper testCluster(TypePair typePair, DataProvider<Object[]> dataProvider) {
-        TestCluster cluster = TestBuilders.cluster().nodes("N1")
+        TestCluster cluster = ClusterBuilderImpl.cluster().nodes("N1")
                 .addTable().name("T")
                 .addKeyColumn("id", NativeTypes.INT32)
                 .addColumn("C1", typePair.first())
@@ -231,7 +232,7 @@ class BaseTypeCheckExecutionTest extends BaseIgniteAbstractTest {
                         .mapToObj(part -> List.of("N1"))
                         .collect(Collectors.toList())
                 )
-                .defaultDataProvider(tableName -> TestBuilders.tableScan(dataProvider))
+                .defaultDataProvider(tableName -> tableScan(dataProvider))
                 .build();
 
         return new ClusterWrapper(cluster);

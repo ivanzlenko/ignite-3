@@ -37,8 +37,8 @@ import org.apache.calcite.sql.SqlOperator;
 import org.apache.calcite.sql.fun.SqlStdOperatorTable;
 import org.apache.calcite.sql.type.SqlTypeName;
 import org.apache.calcite.sql.type.SqlTypeUtil;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.prepare.IgniteSqlValidator;
 import org.apache.ignite.internal.sql.engine.rel.IgniteIndexScan;
 import org.apache.ignite.internal.sql.engine.rel.IgniteMergeJoin;
@@ -70,7 +70,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 @WithSystemProperty(key = "FAST_QUERY_OPTIMIZATION_ENABLED", value = "false")
 public class ImplicitCastsTest extends AbstractPlannerTest {
     private static IgniteTable tableWithColumn(String tableName, String columnName, RelDataType columnType) {
-        return TestBuilders.table()
+        return TableBuilderImpl.table()
                 .name(tableName)
                 .addColumn("ID", NativeTypes.INT32, false)
                 .addColumn(columnName, IgniteTypeFactory.relDataTypeToNative(columnType), false)

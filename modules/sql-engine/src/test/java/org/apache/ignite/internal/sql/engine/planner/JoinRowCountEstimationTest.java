@@ -18,13 +18,13 @@
 package org.apache.ignite.internal.sql.engine.planner;
 
 import static org.apache.ignite.internal.sql.engine.framework.DataProvider.fromCollection;
-import static org.apache.ignite.internal.sql.engine.framework.TestBuilders.tableScan;
+import static org.apache.ignite.internal.sql.engine.framework.ScannableTableFactory.tableScan;
 import static org.apache.ignite.internal.sql.engine.util.QueryChecker.nodeRowCount;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.ClusterBuilderImpl;
 import org.apache.ignite.internal.sql.engine.framework.TestCluster;
 import org.apache.ignite.internal.sql.engine.framework.TestNode;
 import org.apache.ignite.internal.sql.engine.util.TpcTable;
@@ -42,7 +42,7 @@ public class JoinRowCountEstimationTest extends BaseRowsProcessedEstimationTest 
     private static final int CATALOG_RETURNS_SIZE = 144_067;
     private static final int DATE_DIM_SIZE = 73_049;
 
-    private static final TestCluster CLUSTER = TestBuilders.cluster()
+    private static final TestCluster CLUSTER = ClusterBuilderImpl.cluster()
             .nodes("N1")
             .defaultAssignmentsProvider(tableName -> (partNum, includeBackups) -> IntStream.range(0, partNum)
                     .mapToObj(part -> List.of("N1"))

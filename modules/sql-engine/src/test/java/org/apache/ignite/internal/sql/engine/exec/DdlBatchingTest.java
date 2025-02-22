@@ -39,7 +39,7 @@ import org.apache.ignite.internal.catalog.CatalogValidationException;
 import org.apache.ignite.internal.sql.engine.AsyncSqlCursor;
 import org.apache.ignite.internal.sql.engine.InternalSqlRow;
 import org.apache.ignite.internal.sql.engine.exec.fsm.QueryInfo;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.ClusterBuilderImpl;
 import org.apache.ignite.internal.sql.engine.framework.TestCluster;
 import org.apache.ignite.internal.sql.engine.framework.TestNode;
 import org.apache.ignite.internal.testframework.BaseIgniteAbstractTest;
@@ -62,7 +62,7 @@ public class DdlBatchingTest extends BaseIgniteAbstractTest {
 
     @BeforeEach
     void startCluster() {
-        cluster = TestBuilders.cluster()
+        cluster = ClusterBuilderImpl.cluster()
                 .nodes(NODE_NAME)
                 .catalogManagerDecorator(this::catalogManagerDecorator)
                 .build();

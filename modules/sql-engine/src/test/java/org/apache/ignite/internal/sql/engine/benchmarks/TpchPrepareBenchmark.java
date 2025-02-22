@@ -18,7 +18,7 @@
 package org.apache.ignite.internal.sql.engine.benchmarks;
 
 import java.util.concurrent.TimeUnit;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.ClusterBuilderImpl;
 import org.apache.ignite.internal.sql.engine.framework.TestCluster;
 import org.apache.ignite.internal.sql.engine.framework.TestNode;
 import org.apache.ignite.internal.sql.engine.sql.ParsedResult;
@@ -71,7 +71,7 @@ public class TpchPrepareBenchmark {
     /** Starts the cluster and prepares the plan of the query. */
     @Setup
     public void setUp() {
-        testCluster = TestBuilders.cluster().nodes("N1").build();
+        testCluster = ClusterBuilderImpl.cluster().nodes("N1").build();
 
         testCluster.start();
 

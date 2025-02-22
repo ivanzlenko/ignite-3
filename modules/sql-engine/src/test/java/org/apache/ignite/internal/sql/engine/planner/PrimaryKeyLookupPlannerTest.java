@@ -32,7 +32,7 @@ import org.apache.ignite.internal.catalog.CatalogCommand;
 import org.apache.ignite.internal.catalog.commands.DropTableCommand;
 import org.apache.ignite.internal.catalog.descriptors.CatalogTableDescriptor;
 import org.apache.ignite.internal.sql.SqlCommon;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.ClusterBuilderImpl;
 import org.apache.ignite.internal.sql.engine.framework.TestCluster;
 import org.apache.ignite.internal.sql.engine.framework.TestNode;
 import org.apache.ignite.internal.sql.engine.prepare.KeyValueGetPlan;
@@ -48,7 +48,7 @@ import org.junit.jupiter.api.Test;
 public class PrimaryKeyLookupPlannerTest extends AbstractPlannerTest {
     private static final String NODE_NAME = "N1";
 
-    private static final TestCluster CLUSTER = TestBuilders.cluster()
+    private static final TestCluster CLUSTER = ClusterBuilderImpl.cluster()
             .nodes(NODE_NAME)
             .build();
 

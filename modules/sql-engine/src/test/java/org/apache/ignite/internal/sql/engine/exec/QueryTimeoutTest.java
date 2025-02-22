@@ -39,7 +39,7 @@ import org.apache.ignite.internal.sql.engine.api.kill.OperationKillHandler;
 import org.apache.ignite.internal.sql.engine.exec.RowHandler.RowFactory;
 import org.apache.ignite.internal.sql.engine.exec.exp.RangeCondition;
 import org.apache.ignite.internal.sql.engine.exec.mapping.ColocationGroup;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.ClusterBuilderImpl;
 import org.apache.ignite.internal.sql.engine.framework.TestCluster;
 import org.apache.ignite.internal.sql.engine.framework.TestNode;
 import org.apache.ignite.internal.sql.engine.property.SqlProperties;
@@ -76,7 +76,7 @@ public class QueryTimeoutTest extends BaseIgniteAbstractTest {
     void startCluster() {
         ignoreCatalogUpdates.set(false);
 
-        cluster = TestBuilders.cluster()
+        cluster = ClusterBuilderImpl.cluster()
                 .nodes(NODE_NAME)
                 .catalogManagerDecorator(this::catalogManagerDecorator)
                 .operationKillHandlers(

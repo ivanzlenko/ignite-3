@@ -57,7 +57,7 @@ public class TestIndex extends IgniteIndex {
     private static final AtomicInteger ID = new AtomicInteger();
 
     /** Constructor. */
-    TestIndex(
+    private TestIndex(
             String name,
             Type type,
             IgniteDistribution distribution,

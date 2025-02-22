@@ -32,7 +32,7 @@ import org.apache.calcite.rel.type.RelDataTypeFactory;
 import org.apache.calcite.rex.RexCall;
 import org.apache.calcite.rex.RexNode;
 import org.apache.calcite.sql.type.SqlTypeName;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.planner.datatypes.utils.NumericPair;
 import org.apache.ignite.internal.sql.engine.planner.datatypes.utils.TypePair;
 import org.apache.ignite.internal.sql.engine.planner.datatypes.utils.Types;
@@ -1073,7 +1073,7 @@ public class NumericFunctionsTypeCoercionTest extends BaseTypeCoercionTest {
     @MethodSource("integerInteger")
     public void substring(NumericPair pair, Matcher<RexNode> arg1, Matcher<RexNode> arg2) throws Exception {
         IgniteSchema schema = createSchema(
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("T")
                         .distribution(IgniteDistributions.single())
                         .addColumn("C1", NativeTypes.STRING)
@@ -1150,7 +1150,7 @@ public class NumericFunctionsTypeCoercionTest extends BaseTypeCoercionTest {
     @MethodSource("integerInteger")
     public void overlay(NumericPair pair, Matcher<RexNode> arg1, Matcher<RexNode> arg2) throws Exception {
         IgniteSchema schema = createSchema(
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("T")
                         .distribution(IgniteDistributions.single())
                         .addColumn("C1", NativeTypes.STRING)
@@ -1217,7 +1217,7 @@ public class NumericFunctionsTypeCoercionTest extends BaseTypeCoercionTest {
     @MethodSource("integerInteger")
     public void substr(NumericPair pair, Matcher<RexNode> arg1, Matcher<RexNode> arg2) throws Exception {
         IgniteSchema schema = createSchema(
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("T")
                         .distribution(IgniteDistributions.single())
                         .addColumn("C1", NativeTypes.STRING)
@@ -1253,7 +1253,7 @@ public class NumericFunctionsTypeCoercionTest extends BaseTypeCoercionTest {
     @MethodSource("dateYearMonthDayArgs")
     public void dateYearMonthDay(NativeType type, NativeType returnType) throws Exception {
         IgniteSchema schema = createSchema(
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("T")
                         .distribution(IgniteDistributions.single())
                         .addColumn("C1", type)
@@ -1294,7 +1294,7 @@ public class NumericFunctionsTypeCoercionTest extends BaseTypeCoercionTest {
         RelDataType varchar = Commons.typeFactory().createSqlType(SqlTypeName.VARCHAR);
 
         IgniteSchema schema = createSchema(
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("T")
                         .distribution(IgniteDistributions.single())
                         .addColumn("C1", NativeTypes.STRING)

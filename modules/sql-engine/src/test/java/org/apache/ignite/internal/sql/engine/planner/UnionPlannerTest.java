@@ -19,8 +19,8 @@ package org.apache.ignite.internal.sql.engine.planner;
 
 import java.util.function.UnaryOperator;
 import org.apache.calcite.rel.core.Union;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilder;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.rel.IgniteExchange;
 import org.apache.ignite.internal.sql.engine.rel.IgniteUnionAll;
 import org.apache.ignite.internal.sql.engine.rel.agg.IgniteColocatedHashAggregate;
@@ -77,21 +77,21 @@ public class UnionPlannerTest extends AbstractPlannerTest {
     @Test
     public void testUnionAllResultsInLeastRestrictiveType() throws Exception {
         IgniteSchema publicSchema = createSchema(
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("TABLE1")
                         .addColumn("C1", NativeTypes.INT32)
                         .addColumn("C2", NativeTypes.STRING)
                         .distribution(someAffinity())
                         .build(),
 
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("TABLE2")
                         .addColumn("C1", NativeTypes.DOUBLE)
                         .addColumn("C2", NativeTypes.STRING)
                         .distribution(someAffinity())
                         .build(),
 
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("TABLE3")
                         .addColumn("C1", NativeTypes.INT64)
                         .addColumn("C2", NativeTypes.STRING)
@@ -116,14 +116,14 @@ public class UnionPlannerTest extends AbstractPlannerTest {
     @Test
     public void testUnionAllDifferentNullability() throws Exception {
         IgniteSchema publicSchema = createSchema(
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("TABLE1")
                         .addColumn("C1", NativeTypes.INT32, false)
                         .addColumn("C2", NativeTypes.STRING)
                         .distribution(someAffinity())
                         .build(),
 
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("TABLE2")
                         .addColumn("C1", NativeTypes.INT32, true)
                         .addColumn("C2", NativeTypes.STRING)

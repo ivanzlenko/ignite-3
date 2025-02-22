@@ -269,4 +269,9 @@ public class ClusterServiceFactory {
             return getMessageHandlers(groupType);
         }
     }
+
+    /** Factory method to create a cluster service factory for cluster consisting of provided nodes. */
+    public static ClusterServiceFactory clusterServiceFactory(List<String> nodes) {
+        return new ClusterServiceFactory(nodes);
+    }
 }

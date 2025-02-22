@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 import org.apache.calcite.rex.RexCall;
 import org.apache.calcite.rex.RexNode;
 import org.apache.calcite.sql.SqlKind;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.planner.datatypes.utils.NumericPair;
 import org.apache.ignite.internal.sql.engine.planner.datatypes.utils.Types;
 import org.apache.ignite.internal.sql.engine.rel.IgniteTableScan;
@@ -1539,7 +1539,7 @@ public class NumericInTypeCoercionTest extends BaseTypeCoercionTest {
             Matcher<RexNode> forth
     ) throws Exception {
         IgniteSchema schema = createSchema(
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("T1")
                         .distribution(IgniteDistributions.single())
                         .addColumn("C1", typePair.first())
@@ -2103,7 +2103,7 @@ public class NumericInTypeCoercionTest extends BaseTypeCoercionTest {
     ) throws Exception {
 
         IgniteSchema schema = createSchema(
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("T1")
                         .distribution(IgniteDistributions.single())
                         .addColumn("C1", typePair.first())
@@ -2669,7 +2669,7 @@ public class NumericInTypeCoercionTest extends BaseTypeCoercionTest {
     ) throws Exception {
 
         IgniteSchema schema = createSchema(
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("T1")
                         .distribution(IgniteDistributions.single())
                         .addColumn("C1", typePair.first())
@@ -2703,7 +2703,7 @@ public class NumericInTypeCoercionTest extends BaseTypeCoercionTest {
             Matcher<RexNode> second
     ) throws Exception {
         IgniteSchema schema = createSchema(
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("T1")
                         .distribution(IgniteDistributions.single())
                         .addColumn("C1", numericPair.first())

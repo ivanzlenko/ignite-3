@@ -33,7 +33,7 @@ import org.apache.calcite.rex.RexCall;
 import org.apache.calcite.rex.RexNode;
 import org.apache.calcite.sql.SqlKind;
 import org.apache.calcite.sql.type.SqlTypeUtil;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.planner.AbstractPlannerTest;
 import org.apache.ignite.internal.sql.engine.planner.datatypes.utils.NumericPair;
 import org.apache.ignite.internal.sql.engine.planner.datatypes.utils.TypePair;
@@ -83,7 +83,7 @@ public class BaseTypeCoercionTest extends AbstractPlannerTest {
 
     static IgniteSchema createSchemaWithSingleColumnTable(NativeType c1) {
         return createSchema(
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("T")
                         .distribution(IgniteDistributions.single())
                         .addColumn("C1", c1)
@@ -93,7 +93,7 @@ public class BaseTypeCoercionTest extends AbstractPlannerTest {
 
     static IgniteSchema createSchemaWithTwoColumnTable(NativeType c1, NativeType c2) {
         return createSchema(
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("T")
                         .distribution(IgniteDistributions.single())
                         .addColumn("C1", c1)
@@ -104,12 +104,12 @@ public class BaseTypeCoercionTest extends AbstractPlannerTest {
 
     static IgniteSchema createSchemaWithTwoSingleColumnTable(NativeType c1, NativeType c2) {
         return createSchema(
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("T1")
                         .distribution(IgniteDistributions.single())
                         .addColumn("C1", c1)
                         .build(),
-                TestBuilders.table()
+                TableBuilderImpl.table()
                         .name("T2")
                         .distribution(IgniteDistributions.single())
                         .addColumn("C2", c2)

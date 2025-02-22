@@ -30,7 +30,7 @@ import org.apache.calcite.plan.RelOptUtil;
 import org.apache.calcite.sql.SqlExplainFormat;
 import org.apache.calcite.sql.SqlExplainLevel;
 import org.apache.calcite.sql.SqlKind;
-import org.apache.ignite.internal.sql.engine.framework.TestBuilders;
+import org.apache.ignite.internal.sql.engine.framework.TableBuilderImpl;
 import org.apache.ignite.internal.sql.engine.prepare.pruning.PartitionPruningColumns;
 import org.apache.ignite.internal.sql.engine.prepare.pruning.PartitionPruningMetadata;
 import org.apache.ignite.internal.sql.engine.prepare.pruning.PartitionPruningMetadataExtractor;
@@ -54,33 +54,33 @@ import org.junit.jupiter.params.provider.EnumSource;
 @WithSystemProperty(key = "FAST_QUERY_OPTIMIZATION_ENABLED", value = "false")
 public class PartitionPruningMetadataTest extends AbstractPlannerTest {
 
-    private static final IgniteSchema TABLE_C1 = createSchema(TestBuilders.table().name("T")
+    private static final IgniteSchema TABLE_C1 = createSchema(TableBuilderImpl.table().name("T")
             .addKeyColumn("C1", NativeTypes.INT32)
             .addColumn("C2", NativeTypes.INT32, false)
             .distribution(IgniteDistributions.affinity(List.of(0), 1, 2))
             .build());
 
-    private static final IgniteSchema TABLE_C1_NULLABLE_C2 = createSchema(TestBuilders.table().name("T")
+    private static final IgniteSchema TABLE_C1_NULLABLE_C2 = createSchema(TableBuilderImpl.table().name("T")
             .addKeyColumn("C1", NativeTypes.INT32)
             .addColumn("C2", NativeTypes.INT32, true)
             .distribution(IgniteDistributions.affinity(List.of(0), 1, 2))
             .build());
 
-    private static final IgniteSchema TABLE_C1_C2 = createSchema(TestBuilders.table().name("T")
+    private static final IgniteSchema TABLE_C1_C2 = createSchema(TableBuilderImpl.table().name("T")
             .addKeyColumn("C1", NativeTypes.INT32)
             .addKeyColumn("C2", NativeTypes.INT32)
             .addColumn("C3", NativeTypes.INT32, false)
             .distribution(IgniteDistributions.affinity(List.of(0, 1), 1, 2))
             .build());
 
-    private static final IgniteSchema TABLE_C1_C2_NULLABLE_C3 = createSchema(TestBuilders.table().name("T")
+    private static final IgniteSchema TABLE_C1_C2_NULLABLE_C3 = createSchema(TableBuilderImpl.table().name("T")
             .addKeyColumn("C1", NativeTypes.INT32)
             .addKeyColumn("C2", NativeTypes.INT32)
             .addColumn("C3", NativeTypes.INT32, true)
             .distribution(IgniteDistributions.affinity(List.of(0, 1), 1, 2))
             .build());
 
-    private static final IgniteSchema TABLE_C1_C2_C3 = createSchema(TestBuilders.table().name("T")
+    private static final IgniteSchema TABLE_C1_C2_C3 = createSchema(TableBuilderImpl.table().name("T")
             .addKeyColumn("C1", NativeTypes.INT32)
             .addKeyColumn("C2", NativeTypes.INT32)
             .addKeyColumn("C3", NativeTypes.INT32)
@@ -88,26 +88,26 @@ public class PartitionPruningMetadataTest extends AbstractPlannerTest {
             .distribution(IgniteDistributions.affinity(List.of(0, 1, 2), 1, 2))
             .build());
 
-    private static final IgniteSchema TABLE_BOOL_C1 = createSchema(TestBuilders.table().name("T")
+    private static final IgniteSchema TABLE_BOOL_C1 = createSchema(TableBuilderImpl.table().name("T")
             .addKeyColumn("C1", NativeTypes.BOOLEAN)
             .addColumn("C2", NativeTypes.INT32, false)
             .distribution(IgniteDistributions.affinity(List.of(0), 1, 2))
             .build());
 
-    private static final IgniteSchema TABLE_BOOL_C1_C3 = createSchema(TestBuilders.table().name("T")
+    private static final IgniteSchema TABLE_BOOL_C1_C3 = createSchema(TableBuilderImpl.table().name("T")
             .addKeyColumn("C1", NativeTypes.BOOLEAN)
             .addKeyColumn("C2", NativeTypes.BOOLEAN)
             .addColumn("C3", NativeTypes.INT32, false)
             .distribution(IgniteDistributions.affinity(List.of(0, 1), 1, 2))
             .build());
 
-    private static final IgniteSchema TABLE_C1_BOOLS = createSchema(TestBuilders.table().name("T")
+    private static final IgniteSchema TABLE_C1_BOOLS = createSchema(TableBuilderImpl.table().name("T")
             .addKeyColumn("C1", NativeTypes.INT32)
             .addColumn("C2", NativeTypes.BOOLEAN, false)
             .distribution(IgniteDistributions.affinity(List.of(0), 1, 2))
             .build());
 
-    private static final IgniteSchema TABLE_ALL_BOOLS_C1 = createSchema(TestBuilders.table().name("T")
+    private static final IgniteSchema TABLE_ALL_BOOLS_C1 = createSchema(TableBuilderImpl.table().name("T")
             .addKeyColumn("C1", NativeTypes.BOOLEAN)
             .addColumn("C2", NativeTypes.BOOLEAN, false)
             .distribution(IgniteDistributions.affinity(List.of(0), 1, 2))
